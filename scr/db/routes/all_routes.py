@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from scr.routes.employee import router as employee_router
+from scr.db.routes.employee import router as employee_router
 
 router = APIRouter()
 
