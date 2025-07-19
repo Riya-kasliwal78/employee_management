@@ -1,5 +1,5 @@
 from scr.db.models import init_db
-from scr.routes.all_routes import router
+from scr.db.routes.all_routes import router
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -10,6 +10,6 @@ async def init_process():
 
 app.include_router(router)
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("employee_management.main:app", host= "0.0.0.0" , port=8000, reload=True)
+    uvicorn.run("main:app", host= "0.0.0.0" , port=8000, reload=True)

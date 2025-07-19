@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, EmailStr
 from sqlalchemy.orm import Session
 from . import get_db
-from loguru import logger
-from src.db.models import EmployeeInfo
+# from loguru import logger
+from scr.db.models import EmployeeInfo
 from typing import Optional
 
 router = APIRouter()
@@ -17,7 +17,7 @@ class EmployeeCreate(BaseModel):
     department: Optional[str] = None
     position: Optional[str] = None
     salary: Optional[float] = None
-    hire_date: Optional[str] = None
+    
 
 
 @router.get("/get_all_emp_info", tags=["View Employees"])
@@ -72,7 +72,6 @@ def add_emp_info(
                 department=info.department,
                 position=info.position,
                 salary=info.salary,
-                hire_date=info.hire_date
             )
             db.add(emp_add_info)
             db.commit()
