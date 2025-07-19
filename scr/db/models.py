@@ -1,28 +1,27 @@
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import Column, Integer, String, Float, create_engine
 from os import getcwd
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from loguru import logger
+# from loguru python employee_management/scr/db/models.py import logger
 
 engine = None
 Base = declarative_base()
 DBsession: sessionmaker = None
 
-def EmployeeInfo(Base):
+class EmployeeInfo(Base):
     __tablename__ = 'employee_info'
     id = Column(Integer, primary_key=True, index=True)
-    first_name = Column(String, nullable = False)
-    last_name = Column(String, nullable= False)
+    first_name = Column(String, nullable=False)
+    last_name = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=False)
-    phone = Column(String, nullable = False)
-    department = Column(String, nullable = True)
-    position = Column(String, nullable = True)
-    salary = Column(Float, nullable = True)
+    phone = Column(String, nullable=False)
+    department = Column(String, nullable=True)
+    position = Column(String, nullable=True)
+    salary = Column(Float, nullable=True)
 
-    def init_db():
-    try: 
-        global DBsession
-
+def init_db():
+    try:
+        global DBsession, engine
         engine = create_engine(f"sqlite:///{getcwd()}/config/employee.db")
         conn = engine.connect()
         conn.close()
@@ -34,7 +33,7 @@ def EmployeeInfo(Base):
         return False
 
 def get_session():
-    if DBsession != None:
+    if DBsession is not None:
         session = DBsession()
         return session
     else:
